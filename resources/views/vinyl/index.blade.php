@@ -2,7 +2,38 @@
     <div class="max-w-7xl mx-auto p-6">
 
         <!-- Pagina titel -->
-        <h1 class="text-3xl font-bold text-green-600 mb-8 text-center">Onze Collectie</h1>
+        <h1 class="text-3xl font-bold text-green-600 mb-6 text-center">Onze Collectie</h1>
+
+        <!-- Filters -->
+        <form method="GET" class="mb-6 flex flex-wrap gap-4">
+            <!-- Artiest filter -->
+            <select name="artiest" class="border rounded p-2">
+                <option value="">Alle artiesten</option>
+                @foreach($artiesten as $artiest)
+                    <option value="{{ $artiest }}" @selected(request('artiest') == $artiest)>{{ $artiest }}</option>
+                @endforeach
+            </select>
+
+            <!-- Genre filter -->
+            <select name="genre" class="border rounded p-2">
+                <option value="">Alle genres</option>
+                @foreach($genres as $genre)
+                    <option value="{{ $genre }}" @selected(request('genre') == $genre)>{{ $genre }}</option>
+                @endforeach
+            </select>
+
+            <!-- Prijs sortering -->
+            <select name="prijs" class="border rounded p-2">
+                <option value="">Prijs</option>
+                <option value="asc" @selected(request('prijs') == 'asc')>Laag naar Hoog</option>
+                <option value="desc" @selected(request('prijs') == 'desc')>Hoog naar Laag</option>
+            </select>
+
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                Filter
+            </button>
+        </form>
+
 
         <!-- Vinyl Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

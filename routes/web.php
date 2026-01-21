@@ -5,6 +5,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommunityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -35,5 +36,11 @@ Route::get('/over-ons', fn () => view('pages.about'))->name('about');
 Route::get('/contact', fn () => view('pages.contact'))->name('contact');
 
 Route::get('/api/vinyls/search', [App\Http\Controllers\VinylController::class, 'search']);
+
+Route::get('/winkelmand', [CartController::class, 'index'])->name('cart.index');
+Route::post('/winkelmand/add/{vinyl}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/winkelmand/update/{vinyl}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/winkelmand/remove/{vinyl}', [CartController::class, 'remove'])->name('cart.remove');
+
 
 require __DIR__.'/auth.php';

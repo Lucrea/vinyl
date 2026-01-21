@@ -17,7 +17,16 @@
                 <x-nav-link :href="url('/community')" :active="request()->is('community')">Community</x-nav-link>
                 <x-nav-link :href="url('/over-ons')" :active="request()->is('over-ons')">Over ons</x-nav-link>
                 <x-nav-link :href="url('/contact')" :active="request()->is('contact')">Contact</x-nav-link>
+
+                @php
+                    $cart = session('cart', []);
+                    $cartCount = collect($cart)->sum('quantity');
+                @endphp
+                <x-nav-link :href="route('cart.index')" :active="request()->is('cart')">
+                    🛒 @if($cartCount > 0)({{ $cartCount }})@endif
+                </x-nav-link>
             </div>
+
 
             <!-- Desktop Search -->
             <div x-data="search()" class="relative hidden sm:block">

@@ -19,15 +19,27 @@
         <!-- Beschrijving -->
         <p class="text-gray-600 mb-6 text-center">{{ $vinyl->beschrijving }}</p>
 
-        <!-- Favorieten knop -->
-        @auth
-            <form method="POST" action="{{ route('favorites.store', $vinyl) }}" class="flex justify-center">
+        <!-- Knoppen -->
+        <div class="flex flex-col items-center space-y-3">
+
+            <!-- Favorieten knop -->
+            @auth
+                <form method="POST" action="{{ route('favorites.store', $vinyl) }}" class="w-full max-w-xs">
+                    @csrf
+                    <button class="w-full mt-2 bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition font-semibold">
+                        Toevoegen aan favorieten
+                    </button>
+                </form>
+            @endauth
+
+            <!-- Voeg toe aan mand knop -->
+            <form method="POST" action="{{ route('cart.add', $vinyl) }}" class="w-full max-w-xs">
                 @csrf
-                <button class="mt-2 bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition font-semibold">
-                    Toevoegen aan favorieten
+                <button class="w-full mt-2 bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition font-semibold">
+                    Voeg toe aan mand
                 </button>
             </form>
-        @endauth
 
+        </div>
     </div>
 </x-app-layout>
