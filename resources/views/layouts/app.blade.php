@@ -32,5 +32,38 @@
                 {{ $slot }}
             </main>
         </div>
+        <script>
+            const vinylShowBase = "{{ url('/collectie') }}"; // basis URL voor detailpagina's
+
+            function search() {
+                return {
+                    query: '',
+                    results: [],
+                    async fetchResults() {
+                        if (this.query.length < 2) {
+                            this.results = [];
+                            return;
+                        }
+
+                        try {
+                            const res = await fetch(`/api/vinyls/search?q=${this.query}`);
+                            const data = await res.json();
+
+                            // Voeg URL toe aan elk resultaat
+                            this.results = data.map(vinyl => ({
+                                ...vinyl,
+                                url: `${vinylShowBase}/${vinyl.id}`
+                            }));
+
+                            console.log(this.results); // debug
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                }
+            }
+        </script>
+
+
     </body>
 </html>

@@ -34,4 +34,6 @@ Route::delete('/community/{post}', [CommunityController::class, 'destroy'])
 Route::get('/over-ons', fn () => view('pages.about'))->name('about');
 Route::get('/contact', fn () => view('pages.contact'))->name('contact');
 
+Route::get('/api/vinyls/search', [App\Http\Controllers\VinylController::class, 'search']);
+
 require __DIR__.'/auth.php';

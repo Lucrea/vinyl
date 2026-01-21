@@ -26,4 +26,18 @@ class VinylController extends Controller
     {
         return view('vinyl.show', compact('vinyl'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('q', '');
+
+        $vinyls = \App\Models\Vinyl::where('titel', 'like', "%{$query}%")
+            ->orWhere('artiest', 'like', "%{$query}%")
+            ->limit(5)
+            ->get(['id', 'titel', 'artiest']);
+
+        return response()->json($vinyls);
+    }
+
+
 }

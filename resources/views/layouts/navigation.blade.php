@@ -19,6 +19,28 @@
                 <x-nav-link :href="url('/contact')" :active="request()->is('contact')">Contact</x-nav-link>
             </div>
 
+            <!-- Desktop Search -->
+            <div x-data="search()" class="relative hidden sm:block">
+                <input
+                    type="text"
+                    x-model="query"
+                    @input.debounce.300="fetchResults"
+                    placeholder="Zoek platen..."
+                    class="border border-gray-300 rounded-full px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-green-600"
+                >
+
+                <!-- Suggesties dropdown -->
+                <div x-show="results.length > 0" x-cloak class="absolute mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                    <template x-for="vinyl in results" :key="vinyl.id">
+                        <a :href="vinyl.url" class="block px-4 py-2 hover:bg-green-50">
+                            <span x-text="vinyl.titel"></span> - <small x-text="vinyl.artiest"></small>
+                        </a>
+                    </template>
+                </div>
+            </div>
+
+
+
             <!-- Login / Logout -->
             <div class="hidden sm:flex items-center space-x-4">
                 @auth
